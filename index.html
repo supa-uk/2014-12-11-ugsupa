@@ -1,75 +1,60 @@
 ---
 layout: workshop
 root: .
-venue: Euphoric State University
-address: 123 College Street, Euphoria
-country: United-States
-humandate: Feb 17-18, 2020
-humantime: 9:00 am - 4:30 pm
-startdate: 2020-06-17
-enddate: 2020-06-18
-latlng: 41.7901128,-87.6007318
-registration: restricted
-instructor: ["Grace Hopper", "Alan Turing"]
-helper: ["John von Neumann"]
-contact: admin@software-carpentry.org
-#redirect: http://www.3rd.party.workshop.home.page.com
-#eventbrite: 00000000000
-lessons: ['R', 'Python', 'SQL', 'Git', 'Bash', 'VM']
+venue: The University of Edinburgh
+address: Room 3217, James Clerk Maxwell Building, Peter Guthrie Tait Road, Edinburgh, EH9 3FD
+country: United-Kingdon
+humandate: Dec 3-4, 2014
+humantime: 9:00 am - 5:00 pm
+startdate: 2014-06-03
+enddate: 2014-06-04
+latlng: 55.921628,-3.174155
+registration: open
+instructor: ["Mike Jackson", "Arno Proeme", "Mario Antonioletti", "Alistair Grant"]
+helper: ['To be confirmed']
+contact: support@archer.ac.uk
+lessons: ['Git', 'Python']
 ---
-<!--
-    Edit the values in the parameter block above to be appropriate for your workshop.
-    Please use three-letter month names for the 'humandate' field.
--->
-
-<!-- Remove the block below. -->
-<div align="center">
-  <p><strong><em>
-      This page is a template for workshop home pages.
-      <br/>
-      Please see
-      <a href="//github.com/swcarpentry/bc">github.com/swcarpentry/bc</a>
-      for instructions on how to create
-      a repository for your workshop.
-  </em></strong></p>
-</div>
-
-<!--
-    This block includes the Eventbrite registration widget if 'eventbrite' has been set in the header.
-
-    Maybe you need to change height value:
-
-    - for one room use 206px,
-    - for one waitlist room use 152px,
-    - for two room use 254px,
-    - for one waitlist room and one room use 253px,
-    - for two waitlist room use 197px.
--->
-{% if page.eventbrite %}
-<iframe
-  src="//www.eventbrite.com/tickets-external?eid={{page.eventbrite}}&ref=etckt" frameborder="0" width="100%" height="206px" scrolling="auto"></iframe>
-{% endif %}
 
 <h2>General Information</h2>
-
 <p>
-  <a href="//software-carpentry.org">Software Carpentry</a>'s mission
-  is to help scientists and engineers become more productive
-  by teaching them basic lab skills for computing
-  like program design, version control, data management, and task automation.
-  This two-day hands-on workshop will cover basic concepts and tools;
-  participants will be encouraged to help one another
-  and to apply what they have learned to their own research problems.
+  <a href="http://www.archer.ac.uk">ARCHER</a>, the UK's national
+  supercomputing service, offers training in software development and
+  high-performance computing to scientists and researchers across the
+  UK. As part of our training service we are running a 2 day Software
+  Carpentry workshop. 
+</p>
+<p>
+  <a href="http://software-carpentry.org">Software Carpentry</a>
+  workshops help researchers become more productive by teaching software
+  development skills that enable more to be done, in less time, and with
+  less pain. We will cover skills including version control, task
+  automation, good programming practice and automated testing. These are
+  skills that, in an ideal world, researchers would master before
+  tackling anything with "cloud" or "peta" or "HPC" in their name, skills
+  that enable researchers to optimise their time and provide them with a
+  secure basis to optimise and parallelise their code.
+</p>
+<p>
+  This workshop is being run by <a
+  href="http://www.epcc.ed.ac.uk">EPCC</a>, as part of ARCHER. The
+  workshop is in collaboration with EPCC's <a
+  href="http://www.prace-project.eu/PRACE-Advanced-Training-Centres">PRACE
+  Advanced Training Centre</a> (PATC), and Software Carpentry, a <a
+  href="https://wiki.mozilla.org/ScienceLab">Mozilla Science Lab</a>
+  initiative. 
 </p>
 
-<!--
-    Modify this block to reflect the target audience for your workshop.
-    In particular, if it is only open to people from a particular institution,
-    or if specialized prerequisite knowledge is required, please mention that.
--->
 <p>
   <strong>Who:</strong>
-  The course is aimed at graduate students and other researchers.
+  The workshop is aimed at graduate students, post-docs and other
+  researchers. You must have some experience of writing code or scripts
+  and be familiar with programming concepts including conditionals,
+  loops, arrays and functions. You should also be comfortable with using
+  the bash shell. For an introduction to the shell, please see, for
+  example, Software Carpentry's lessons on <a
+  href="http://software-carpentry.org/v5/novice/shell/">The Unix
+  Shell</a>.
 </p>
 
 <!--
@@ -113,84 +98,53 @@ lessons: ['R', 'Python', 'SQL', 'Git', 'Bash', 'VM']
 
 <hr/>
 
-<!--
-    Edit this block to show the schedule for your workshop.
--->
+<h2>Registration</h2>
+<p>
+To register, or to get more information, please, visit the <a
+href="http://www.archer.ac.uk/training/">ARCHER training page</a>.
+</p>
+
+<hr/>
+
 <h2>Schedule</h2>
 
 <div class="row-fluid">
   <div class="span6">
     <h3>Day 1</h3>
     <table class="table table-striped">
-      <tr> <td>09:00</td> <td>Automating tasks with the Unix shell</td> </tr>
+      <tr> <td>09:00</td> <td>Introduction and software set-up</td> </tr>
+      <tr> <td>10:00</td> <td>Version control with Git</td> </tr>
       <tr> <td><em>10:30</em></td> <td><em>Coffee break</em></td> </tr>
-      <tr> <td>12:00</td> <td>Lunch break</td> </tr>
-      <tr> <td>13:00</td> <td>Building programs with Python</td> </tr>
-      <tr> <td><em>14:30</em></td> <td><em>Coffee break</em></td> </tr>
-      <tr> <td>16:00</td> <td>Wrap-up</td> </tr>
+      <tr> <td>11:00</td> <td>Version control with Git</td> </tr>
+      <tr> <td>13:00</td> <td>Lunch break</td> </tr>
+      <tr> <td>14:00</td> <td>Building programs with Python</td> </tr>
+      <tr> <td><em>15:00</em></td> <td><em>Coffee break</em></td> </tr>
+      <tr> <td>15:30</td> <td>Building programs with Python</td> </tr>
+      <tr> <td>17:00</td> <td>Close</td> </tr>
     </table>
   </div>
   <div class="span6">
     <h3>Day 2</h3>
     <table class="table table-striped">
-      <tr> <td>09:00</td> <td>Version control with Git</td> </tr>
+      <tr> <td>09:00</td> <td>Automation and Make</td> </tr>
       <tr> <td><em>10:30</em></td> <td><em>Coffee break</em></td> </tr>
+      <tr> <td>11:00</td> <td>Automation and Make</td> </tr>
       <tr> <td>12:00</td> <td>Lunch break</td> </tr>
-      <tr> <td>13:00</td> <td>Managing data with SQL</td> </tr>
+      <tr> <td>13:00</td> <td>How (and how much) to test programs</td> </tr>
       <tr> <td><em>14:30</em></td> <td><em>Coffee break</em></td> </tr>
-      <tr> <td>16:00</td> <td>Wrap-up</td> </tr>
+      <tr> <td>15:00</td> <td>How (and how much) to test programs</td> </tr>
+      <tr> <td>16:00</td> <td>Best practices for scientific computing</td> </tr>
+      <tr> <td>17:00</td> <td>Close</td> </tr>
     </table>
   </div>
 </div>
 
 <hr/>
 
-<!--
-    Edit this block to show what topics will be covered.
--->
 <h2>Syllabus</h2>
 
 <div class="row-fluid">
-  <div class="span6">
-    <h3>The Unix Shell</h3>
-    <ul>
-      <li>Files and directories: <code>pwd</code>, <code>cd</code>, <code>ls</code>, <code>mkdir</code>, ...</li>
-      <li>History and tab completion</li>
-      <li>Pipes and redirection</li>
-      <li>Looping over files</li>
-      <li>Creating and running shell scripts</li>
-      <li>Finding things: <code>grep</code>, <code>find</code>, ...</li>
-      <li><a href="novice/ref/01-shell.html">Reference...</a></li>
-    </ul>
-  </div>
-  <div class="span6">
-    <h3>Programming in Python</h3>
-    <ul>
-      <li>Using libraries</li>
-      <li>Working with arrays</li>
-      <li>Reading and plotting data</li>
-      <li>Creating and using functions</li>
-      <li>Loops and conditionals: <code>for</code>, <code>if</code>, <code>else</code>, ...</li>
-      <li>Defensive programming</li>
-      <li>Using Python from the command line</li>
-      <li><a href="novice/ref/03-python.html">Reference...</a></li>
-    </ul>
-  </div>
-  <div class="span6">
-    <h3>Programming in R</h3>
-    <ul>
-      <li>Working with vectors and data frames</li>
-      <li>Reading and plotting data</li>
-      <li>Creating and using functions</li>
-      <li>Loops and conditionals: <code>for</code>, <code>if</code>, <code>else</code></li>
-      <li>Using R from the command line</li>
-      <li><a href="novice/ref/06-R.html">Reference...</a></li>
-    </ul>
-  </div>
-</div>
-
-<div class="row-fluid">
-  <div class="span6">
+  <div class="span6"> 
     <h3>Version Control with Git</h3>
     <ul>
       <li>Creating a repository</li>
@@ -205,17 +159,33 @@ lessons: ['R', 'Python', 'SQL', 'Git', 'Bash', 'VM']
     </ul>
   </div>
   <div class="span6">
-    <h3>Managing Data with SQL</h3>
+    <h3>Building programs with Python</h3>
     <ul>
-      <li>Reading and sorting data</li>
-      <li>Filtering with <code>where</code></li>
-      <li>Calculating new values on the fly</li>
-      <li>Handling missing values</li>
-      <li>Combining values using aggregation</li>
-      <li>Combining information from multiple tables using <code>join</code></li>
-      <li>Creating, modifying, and deleting data</li>
-      <li>Programming with databases</li>
-      <li><a href="novice/ref/04-sql.html">Reference...</a></li>
+      <li>Using libraries</li>
+      <li>Working with arrays</li>
+      <li>Reading and plotting data</li>
+      <li>Creating and using functions</li>
+      <li>Loops and conditionals: <code>for</code>, <code>if</code>, <code>else</code>, ...</li>
+      <li>Defensive programming</li>
+      <li>Using Python from the command line</li>
+      <li><a href="novice/ref/03-python.html">Reference...</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span6"> 
+    <h3>Automation and Make</h3>
+    <ul>
+      <li>...</li>
+      <li><a href="novice/ref/02-git.html">Reference...</a></li>
+    </ul>
+  </div>
+  <div class="span6">
+    <h3>How (and how much) to test programs</h3>
+    <ul>
+      <li>...</li>
+      <li><a href="novice/ref/02-git.html">Reference...</a></li>
     </ul>
   </div>
 </div>
@@ -238,3 +208,114 @@ lessons: ['R', 'Python', 'SQL', 'Git', 'Bash', 'VM']
 </p>
 
 {% include setup.html %}
+
+<h2>Check your setup</h2>
+
+<p>
+To test you have everything, download the following Python scripts and
+run them within your bash shell: 
+</p>
+<ul>
+<li><a href="./setup/swc-installation-test-1.py">swc-installation-test-1.py</a>- checks Python version
+<li><a href="./setup/swc-installation-test-2.py">swc-installation-test-2.py</a>- checks Python and shell packages
+</ul>
+<p>
+For example
+</p>
+<pre>
+python swc-installation-test-1.py
+python swc-installation-test-2.py
+</pre>
+
+<hr/>
+
+<h2>Useful links</h2>
+
+<ul>
+  <li>
+    <a href="novice/ref/05-prompts-exits.html">Recognising prompts and how to exit</a>
+  </li>
+</ul>
+
+<p>
+Course materials:
+</p>
+<ul>
+<li>
+Attendee <a href="http://github.com/hpcarcher/2014-12-03-edinburgh-students">slides, sample code and scripts</a>
+</li>
+</ul>
+<p>
+Software Carpentry online lessions:
+</p>
+<ul>
+<li><a href="novice/git/index.html">Version Control with Git</a></li>
+<li><a href="novice/python/index.html">Programming with Python</a></li>
+<li><a href="http://software-carpentry.org/v4/make/index.html">Make</a></li>
+<li><a href="http://software-carpentry.org/v4/test/index.html">Testing</a></li>
+</ul>
+<p>
+Git:
+</p>
+<ul>
+<li>
+GitHub <a href="https://try.github.io/levels/1/challenges/1">interactive Git tutorials</a>
+</li>
+<li>
+<a href="http://justinhileman.info/article/git-pretty/">Git pretty</a> - a flowchart about how to recover from mistakes.
+</li>
+<a href="https://presentate.com/bobthecow/talks/changing-history">Changing History, or How to Git pretty</a> - slides relating to the above.
+</li>
+</ul>
+<p>
+Python:
+</p>
+<ul>
+<li>
+<a href="http://matplotlib.org/gallery.html">matplotlib examples gallery</a> - includes source code.
+</li>
+<li>
+<a href="http://wiki.scipy.org/Cookbook">SciPy Cookbook</a> - examples of how to do useful stuff using numpy, scipy, matplotlib, interfacing, etc.
+</li>
+<li>
+Scientific Python <a href="http://scipy-lectures.github.io/">lecture notes</a></li>
+</ul>
+<p>
+Training:
+</p>
+<ul>
+<li>
+<a href="http://www.archer.ac.uk/training/">ARCHER Training</a> - free HPC training all over the UK.
+</li>
+<li>
+<a href="http://www.codecademy.com/">Code Academy</a> - free online programming courses</a>
+</li>
+</ul>
+<p>
+Papers:
+</p>
+<p>
+Wilson G, Aruliah DA, Brown CT, Chue Hong NP, Davis M, et al. (2014)  
+Best Practices for Scientific Computing. PLoS Biol 12(1): e1001745. <a 
+href="http://dx.doi.org/10.1371/journal.pbio.1001745">doi:10.1371/journal.pbio.1001745</a>.
+</p>
+<p>
+Sandve GK, Nekrutenko A, Taylor J, Hovig E (2013) Ten Simple Rules for  
+Reproducible Computational Research. PLoS Comput Biol 9(10): e1003285. 
+<a 
+href="http://dx.doi.org/10.1371/journal.pcbi.1003285">doi:10.1371/journal.pcbi.1003285</a>.
+</p>
+<p>
+Noble WS (2009) A Quick Guide to Organizing Computational Biology 
+Projects. PLoS Comput Biol 5(7): e1000424. <a 
+href="http://dx.doi.org/10.1371/journal.pcbi.1000424">doi:10.1371/journal.pcbi.1000424</a>.
+</p>
+<p>
+Ram K (2013) "git can facilitate greater reproducibility and increased
+transparency in science", Source Code for Biology and Medicine 2013,
+8:7 <a
+href="http://dx.doi.org/10.1186/1751-0473-8-7">doi:10.1186/1751-0473-8-7</a>.
+</p>
+<p>
+Glass, R. (2002) Facts and Fallacies of Software Engineering, Addison-Wesley, 2002. (<a href="http://ff.tu-sofia.bg/~bogi/France/SoftEng/books/Addison%20Wesley%20-%20Robert%20L%20Glass%20-%20Facts%20and%20Fallacies%20of%20Software%20Engineering.pdf">PDF</a>).
+</p>
