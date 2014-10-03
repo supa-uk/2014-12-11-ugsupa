@@ -126,9 +126,9 @@ href="http://www.archer.ac.uk/training/">ARCHER training page</a>.
   <div class="span6">
     <h3>Day 2</h3>
     <table class="table table-striped">
-      <tr> <td>09:00</td> <td>Automation and Make</td> </tr>
+      <tr> <td>09:00</td> <td>Automating tasks with Make</td> </tr>
       <tr> <td><em>10:30</em></td> <td><em>Coffee break</em></td> </tr>
-      <tr> <td>11:00</td> <td>Automation and Make</td> </tr>
+      <tr> <td>11:00</td> <td>Automating tasks with Make</td> </tr>
       <tr> <td>12:00</td> <td>Lunch break</td> </tr>
       <tr> <td>13:00</td> <td>How (and how much) to test programs</td> </tr>
       <tr> <td><em>14:30</em></td> <td><em>Coffee break</em></td> </tr>
@@ -175,7 +175,7 @@ href="http://www.archer.ac.uk/training/">ARCHER training page</a>.
 
 <div class="row-fluid">
   <div class="span6"> 
-    <h3>Automation and Make</h3>
+    <h3>Automating tasks with Make</h3>
     <ul>
       <li>Make is not just for compiling code</li>
       <li>Basic Tasks</li>
@@ -216,30 +216,47 @@ href="http://www.archer.ac.uk/training/">ARCHER training page</a>.
 <h2>Check your setup</h2>
 
 <p>
-To test you have everything, download the following Python scripts and
-run them within your bash shell: 
+  To check you have the correct version of Python:
 </p>
 <ul>
-<li><a href="./setup/swc-installation-test-1.py">swc-installation-test-1.py</a>- checks Python version
-<li><a href="./setup/swc-installation-test-2.py">swc-installation-test-2.py</a>- checks Python and shell packages
+  <li>
+    Download <a href="./setup/swc-installation-test-1.py">swc-installation-test-1.py</a>
+  </li>
+  <li>Open up a bash shell</li>
+  <li>Change into the directory where you put the script</li>
+  <li>Run the script:
+    <pre>
+      python swc-installation-test-1.py
+    </pre>
+  </li>
 </ul>
 <p>
-For example
+  To check you have the necessary software and tools:
 </p>
-<pre>
-python swc-installation-test-1.py
-python swc-installation-test-2.py
-</pre>
+<ul>
+  <li>
+    Download <a href="./setup/swc-installation-test-2.py">swc-installation-test-2.py</a>
+  </li>
+  <li>Open up a bash shell</li>
+  <li>Change into the directory where you put the script</li>
+  <li>Run the script:
+    <pre>
+      python swc-installation-test-2.py
+    </pre>
+  </li>
+</ul>
+
+<hr/>
+
+<h2>Recognising prompts and how to exit</h2>
+
+<p>
+If you find yourself in a shell that you don't recognise, or in an editor that you can't get out of then see <a href="novice/ref/05-prompts-exits.html">Recognising prompts and how to exit</a>.
+</p>
 
 <hr/>
 
 <h2>Useful links</h2>
-
-<ul>
-  <li>
-    <a href="novice/ref/05-prompts-exits.html">Recognising prompts and how to exit</a>
-  </li>
-</ul>
 
 <p>
 Course materials:
@@ -255,8 +272,9 @@ Software Carpentry online lessions:
 <ul>
 <li><a href="novice/git/index.html">Version Control with Git</a></li>
 <li><a href="novice/python/index.html">Programming with Python</a></li>
-<li><a href="http://software-carpentry.org/v4/make/index.html">Make</a></li>
-<li><a href="http://software-carpentry.org/v4/test/index.html">Testing</a></li>
+<li><a href="intermediate/make/">Automating tasks with make</a></li>
+<li><a href="http://software-carpentry.org/v4/make/index.html">Make</a> (v4)</li>
+<li><a href="http://software-carpentry.org/v4/test/index.html">Testing</a> (v4)</li>
 </ul>
 <p>
 Git:
