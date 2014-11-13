@@ -10,15 +10,15 @@ dats : $(DAT_FILES)
 .PHONY : jpgs
 jpgs : $(JPG_FILES)
 
-# Calculate word frequencies.
+# Count words.
 %.dat : books/%.txt $(COUNT_SRC)
 	$(COUNT_EXE) $< $@
 
-# Calculate images
+# Plot word counts.
 %.jpg : %.dat $(PLOT_SRC)
 	$(PLOT_EXE) $< $@
 
-analysis.tar.gz : *.dat *.jpg $(COUNT_SRC $(PLOT_SRC)
+analysis.tar.gz : *.dat *.jpg $(COUNT_SRC) $(PLOT_SRC)
 	tar -czf $@ $^
 
 clean : 
