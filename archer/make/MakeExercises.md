@@ -4,7 +4,7 @@ Automation and Make Exercises
 Exercise 1 - add a rule 
 -----------------------
 
-Add in a rule for `bridge.dat`, based on the rules for `war.dat` and
+Add in a rule for `last.dat`, based on the rules for `isles.dat` and
 `abyss.dat`.
 
 Be sure to use a single tab when indenting the actions, not spaces!
@@ -25,7 +25,7 @@ Exercise 3 - use a macro
 ------------------------
 
 Replace duplicated occurrences of `python wordcount.py` with the
-macros `$(COUNTER_SRC)` and `$(COUNTER_EXE)`.
+macros `$(COUNT_SRC)` and `$(COUNT_EXE)`.
 
 Exercise 4 - add another processing stage
 -----------------------------------------

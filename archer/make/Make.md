@@ -24,64 +24,77 @@ Automation allows us to "write once, run many":
 Make:
 
 * A widely-used, fast, free, well-documented, build tool.
-* Developed by Stuart Feldman, when a Bell Labs 1977 summer intern. Now Vice President of Computer Science at IBM Research and Google ACM Software System Award, 2003.
+* Developed by Stuart Feldman:
+  - From Bell Labs 1977 summer intern. 
+  - to Vice President of Computer Science at IBM Research and Google ACM Software System Award winner, 2003.
 
 Other build tools:
 
-* Apache ANT - designed for Java.
+* Apache ANT designed for Java.
 * Python doit.
-* Platform independent build tools like CMake or Autoconf/Automake - these generate platform-dependent build scripts e.g. Make, Visual Studio project files etc.
+* CMake and Autoconf/Automake generate platform-dependent build scripts e.g. Make, Visual Studio project files etc.
 
 Data processing pipeline
 ------------------------
 
-Suppose we have a scripts that takes some input files, do some analysis and plots the results. For example, counting the words in a text file and plotting the number of times each word occurs.
+Suppose we have scripts that implement a common workflow:
+
+* Read data files e.g. a text file.
+* Perform an analysis e.g. count the number of occurrences of each word in the file.
+* Writes the results to a file e.g. a file with each word and its number of occurrences.
+* Plots the data e.g. a graph of the most frequently occurring words.
+* Writes the graph to a file e.g. a PDF or a JPG.
 
 Count words in a text file:
 
-    python wordcount.py books/war.txt war.dat     # All words
-    head war.dat
+    python wordcount.py books/isles.txt isles.dat
+    head isles.dat
     python wordcount.py books/abyss.txt abyss.dat
     head abyss.dat
 
-    python wordcount.py books/war.txt war.dat 12  # Words >= 12 characters
-    head war.dat
+Count words in a text file, whose length is >= 12 characters:
 
-Plot word counts:
+    python wordcount.py books/isles.txt isles.dat 12
+    head isles.dat
 
-    python plotcount.py war.dat show              # Plot top 10 words
+Plot top 10 most frequently occuring words:
+
+    python plotcount.py isles.dat show
     python plotcount.py abyss.dat show
 
-    python plotcount.py war.dat show N            # Plot top N words
-    python plotcount.py abyss.dat show N
+Plot top 5 most frequently occuring words:
 
-    python plotcount.py war.dat war.jpg           # Plot top 10 and save as JPG
-    python plotcount.py war.dat war.jpg 5
+    python plotcount.py isles.dat show 5
+    python plotcount.py abyss.dat show 5
+
+Plot top 5 most frequently occuring words and save as a JPG:
+
+    python plotcount.py isles.dat isles.jpg 5
 
 Makefile
 --------
 
-    python wordcount.py books/war.txt war.dat
-    head war.dat
+    python wordcount.py books/isles.txt isles.dat
+    head isles.dat
 
-Let's pretend we've updated one of the text files, using `touch` to update its timestamp:
+Let's pretend we update one of the input files. We can use `touch` to update its timestamp:
 
-    touch books/war.txt
-    ls -l books/war.txt war.dat
+    touch books/isles.txt
+    ls -l books/isles.txt isles.dat
 
-Output file `war.dat` is now older than input `books/war.txt`, so we need to update it.
+Output file `isles.dat` is now older than input `books/isles.txt`, so we need to recreate it.
 
 Question: we could write a shell script but what might be the problems?
 
-Answer: if we have many sources to compile or data files to analyse, we don't want to update everything, just those that need updated.
+Answer: if we have many source files to compile or data files to analyse, we don't want to recreate everything, just those outputs that depend on the changed files.
 
-Create `Makefile`:
+Create a `Makefile`:
 
     # Calculate word frequencies.
-    war.dat : books/war.txt
-	    python wordcount.py books/war.txt war.dat
+    isles.dat : books/isles.txt
+	    python wordcount.py books/isles.txt isles.dat
  
-Add Makefile format information as comments:
+Add information on the Makefile's structure as comments:
 
     # Make comments
     # target: dependency1 dependency1 dependency2 ...
@@ -98,42 +111,49 @@ Make terminology:
   - Actions are indented using TAB, not 8 spaces. 
   - A legacy of Make's 1970's origins.
 
-<p/>
+To use the default Makefile:
 
-    make              # Use default Makefile
-    make -f Makefile  # Use named makefile
     make
+
+To use a named Makefile:
+
+    make -f Makefile
 
 Question: why did nothing happen?
 
 Answer: the target is now up-to-date and newer than its dependency. Make uses a file's 'last modification time'.
 
+Let's add another target:
+
     abyss.dat : books/abyss.txt
         python wordcount.py books/abyss.txt abyss.dat
 
-`touch` updates a file's time-stamp which makes it look as if it's been modified.
+And, run Make:
 
+    make
     touch books/abyss.txt
     make
 
-Nothing happens as the first, default, rule in the makefile, is used.
+Nothing happens as the first, default, target in the makefile, is used. We can explicitly state which target to build:
 
     make abyss.dat
 
-Phony targets:
+Let's add a target to allow us to build both data files:
 
     .PHONY : all
-    all : war.dat abyss.dat
+    all : isles.dat abyss.dat
 
-`all` is not a file or directory but depends on files and directories, so can trigger their rebuilding.
+`all` is not a file or directory but depends on files and directories, so can trigger their rebuilding. It is a 'phony' target.
 
 A dependency in one rule can be a target in another.
 
+We can now use this phony target:
+
     make all
-    touch books/war.txt books/abyss.txt
+    touch books/isles.txt books/abyss.txt
     make all
 
-Order of rebuilding dependencies is arbitrary.
+The order of rebuilding dependencies is arbitrary.
 
 Dependencies must make up a directed acyclic graph.
 
@@ -144,84 +164,99 @@ See [exercises](MakeExercises.md).
 
 Solution:
 
-    bridge.dat : books/bridge.txt
-        python wordcount.py books/bridge.txt bridge.dat
+    last.dat : books/last.txt
+        python wordcount.py books/last.txt last.dat
 
-    all : war.dat abyss.dat bridge.dat
+    all : isles.dat abyss.dat last.dat
 
 Patterns
 --------
 
-    analysis.tar.gz : war.dat abyss.dat bridge.dat
-        tar -czf analysis.tar.gz war.dat abyss.dat bridge.dat
+Let's add a rule to create an archive with all the data files:
+
+    analysis.tar.gz : isles.dat abyss.dat last.dat
+        tar -czf analysis.tar.gz isles.dat abyss.dat last.dat
 
 <p/>
 
     make analysis.tar.gz
 
-Makefiles are code. Repeated code creates maintainability issues. 
+Makefiles are code. Repeated code creates maintainability issues. So let's rewrite the rule as:
 
-    tar -czf $@ war.dat abyss.dat bridge.dat
+    tar -czf $@ isles.dat abyss.dat last.dat
 
-<p/>
-
+`$@` is a Make 'special macro' which means 'the target of the current rule'. Let's add a comment to remind ourselves:
+ 
     # Make's special macros and notation:
     # $@ Target of the current rule.
 
-<p/>
+We still have duplication - the name of the target within the rule. So let's rewrite the rule further:
 
     tar -czf $@ $^
 
-<p/>
+`$^` is a Make special macro which means 'all the dependencies of the current rule'. Let's add this as a comment:
 
     # $^ All dependencies of the current rule.
 
-Bash wild-card can be used in file names:
+We can use the bash wild-card in our dependency list:
 
     analysis.tar.gz : *.dat
 
-<p/>
+Now, let's check it still works:
 
     make analysis.tar.gz
     touch *.dat
     make analysis.tar.gz
 
+Now let's delete the data files and recreate them:
+
     rm *.dat
     make analysis.tar.gz
 
-Question: any guesses as to why this is?
+Question: any guesses as to why this now fails?
 
 Answer: there are no files that match `*.dat` so the name `*.dat` is used as-is.
 
-    make war.dat abyss.dat bridge.dat
+We need to explicitly recreate them:
+
+    make isles.dat abyss.dat last.dat
 
 Dependencies on data and code
 -----------------------------
 
 Output data depends on both input data and programs that create it:
 
-    war.data : books/war.txt wordcount.py
+    isles.data : books/isles.txt wordcount.py
     ...
     abyss.dat : books/abyss.txt wordcount.py
     ...
-    bridge.dat : books/bridge.txt wordcount.py
+    last.dat : books/last.txt wordcount.py
     ...
 
-<p/>
+Let's recreate them all:
 
     touch wordcount.py
     make all
 
 `.txt` files are input files and have no dependencies. To make these depend on `wordcount.py` would introduce a 'false dependency'.
 
+Let's add our analysis script to the archive too:
+
+    analysis.tar.gz : *.dat wordcount.py
+	tar -czf $@ $^
+
 Pattern rules
 -------------
 
-Question: Makefile still has repeated content. Where?
+Question: our Makefile still has repeated content. Where?
 
 Answer: the rules for each .dat file.
 
+Let's replace the rules with a single 'pattern rule':
+
     %.dat : books/%.txt wordcount.py
+
+`%` is a Make wild-card. Let's add this as a comment:
 
     # % - Make wild-card
 
@@ -230,7 +265,7 @@ Exercise 2 - simplify a rule
 
 See [exercises](MakeExercises.md).
 
-You will need another special macro:
+You will need another special macro, `$<` which means 'the first dependency of the current rule'. Add this as a comment:
 
     # $< First dependency of the current rule.
 
@@ -242,21 +277,18 @@ Solution:
 Macros
 ------
 
-    analysis.tar.gz : *.dat wordcount.py
-	tar -czf $@ $^
-
 Question: there's still duplication in our makefile, where?
 
 Answer: the program name. Suppose the name of our program changes?
 
-    COUNTER=wordcount.py
+    COUNT=wordcount.py
 
 Question: is there an alternative to this?
 
-Answer: we might change our programming language or the way in which our command is invoked:
+Answer: we might change our programming language or the way in which our command is invoked, so we can instead define:
 
-    COUNTER_SRC=wordcount.py
-    COUNTER_EXE=python $(COUNTER_SRC)
+    COUNT_SRC=wordcount.py
+    COUNT_EXE=python $(COUNT_SRC)
 
 Exercise 3 - use a macro
 ------------------------
@@ -265,37 +297,39 @@ See [exercises](MakeExercises.md).
 
 Solution:
 
-    COUNTER_SRC=wordcount.py
-    COUNTER_EXE=python $(COUNTER_SRC)
+    COUNT_SRC=wordcount.py
+    COUNT_EXE=python $(COUNT_SRC)
 
-    # Calculate word frequencies.
-    %.dat : books/%.txt $(COUNTER_SRC)
-        $(COUNTER_EXE) $< $@
+    # Count words.
+    %.dat : books/%.txt $(COUNT_SRC)
+        $(COUNT_EXE) $< $@
 
-    analysis.tar.gz : *.dat $(COUNTER_SRC)
+    analysis.tar.gz : *.dat $(COUNT_SRC)
         tar -czf $@ $^
 
-Keep macros at the top of a Makefile so they are easy to find, or move to `config.mk`:
+Keeping macros at the top of a Makefile means they are easy to find and modify. Alternativey, we can pull them out into a configuration file, `config.mk`:
 
-    # Word frequency calculations.
-    COUNTER_SRC=wordcount.py
-    COUNTER_EXE=python $(COUNTER_SRC)
+    # Count words script.
+    COUNT_SRC=wordcount.py
+    COUNT_EXE=python $(COUNT_SRC)
 
-<p/>
+We can then import these into our Makefile using:
 
     include config.mk
 
-Good programming practice:
+This is an example of food programming practice:
 
-* Separate code from data.
-* No need to edit code which reduces risk of introducing a bug.
+* It separates code from data.
+* There is no need to edit code which reduces the risk of introducing a bug.
 * Code that is configurable is more modular, flexible and reusable.
 
 What make will do
 -----------------
 
+We can use `-n` to see what make would do - the commands it will run - without it actually running them:
+
     touch books/*.txt
-    make -n analysis.tar.gz  # Display commands make will run
+    make -n analysis.tar.gz
 
 Exercise 4 - add another processing stage
 -----------------------------------------
@@ -306,7 +340,7 @@ Solution:
 
 Makefile, `Makefile`:
 
-    # Calculate images
+    # Plot word counts.
     %.jpg : %.dat $(PLOT_SRC)
         $(PLOT_EXE) $< $@
 
@@ -320,16 +354,19 @@ Makefile, `Makefile`:
 
 Configuration file, `config.mk`:
 
-    # Image output calculations
+    # Plot word counts script.
     PLOT_SRC=plotcount.py
     PLOT_EXE=python $(PLOT_SRC)
 
 shell and patsubst
 ------------------
 
-Avoid hard-coding file names:
+Make supports many commands. `shell` allows us to run a shell command and save the output in a variable:
 
     TXT_FILES=$(shell find books -type f -name '*.txt')
+
+`patsubst` allows us to substitute patterns in files e.g. change one suffix to another:
+
     DAT_FILES=$(patsubst books/%.txt, %.dat, $(TXT_FILES))
     JPG_FILES=$(patsubst books/%.txt, %.jpg, $(TXT_FILES))
 
@@ -351,11 +388,16 @@ Conclusion
 
 See [the purpose of Make](MakePurpose.png).
 
-Build scripts:
+Automated build scripts help us in a number of ways. They:
 
 * Automate repetitive tasks.
-* Reduce errors.
-* Document how software is built, data is created, graphs are done, papers formed.
+* Reduce errors that we might make if typing commands manually.
+* Document how software is built, data is created, graphs are plotted, papers are composed.
 * Document dependencies between code, scripts, tools, inputs, configurations, outputs.
-* Are code so use meaningful variable names, comments, and separate configuration from computation.
-* Should be kept under revision control.
+
+Automated scripts are code so:
+
+* Use meaningful variable names.
+* Provide comments to explain anything that is not clear.
+* Separate configuration from computation via the use of configuration files.
+* Keep under revision control.
