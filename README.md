@@ -1,6 +1,6 @@
-2014-12-03-edinburgh
+2014-12-11-ugsupa
 ====================
 
-ARCHER Software Carpentry workshop.
+SUPA Glasgow Software Carpentry workshop.
 
 Please visit our [website](http://supa-uk.github.io/2014-12-11-ugsupa/).
