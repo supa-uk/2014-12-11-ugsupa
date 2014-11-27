@@ -201,6 +201,6 @@ Is there anyone willing to give a summary of their test?
 
 ## What Comes Next
 
-* Writing a test in Python
+* Starting to Test
 * Breaking up code
 * Choosing Wisely
