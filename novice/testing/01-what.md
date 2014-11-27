@@ -130,23 +130,48 @@ cities.csv
 citiesAndDistances.pickled
 ukcities.csv
 ./util:
+__init__.py
+__init__.pyc
+plot_city_path.py
+plot_city_path.pyc
+sample_map.py
 write_data_csv.py
 write_data_pickle.py
 ~~~
 {:class="out"}
 
-Take a few minutes - look over the code, trying running it:
+Take a few minutes - look over the code - try to figure out what it is doing.
 
+Before you try running it, you will need to generate some input data.
+
+To do this, we need to use the write_data_pickle.py and this needs the argparse package:
 ~~~
-$ python anttsp.py
+$ pip install argparse
 ~~~
 {:class="in"}
 
+If the package is not installed this will ask you to confirm the install command, if the package is present it will tell you.
+
+Now run the write_data_pickle:
+
+~~~
+$ python write_data_pickle.py <city data csv> <pickle output file>
+~~~
+{:class="in"}
+
+Now try running the solution program:
+
+~~~
+$ python anttsp.py <number of cities> <city data file> <output file>
+~~~
+{:class="in"}
+
+Now lets discuss the output.
+
 Ask about what code is like - the running of it, the structure and other issues:
 * poor structure in places
-* comments missing
+* comments are not brilliant
 * poor naming
-* commented out code
 * what else?
 
 This is a common scenario, being given a code which is not in the best of shape, having no tests. 
