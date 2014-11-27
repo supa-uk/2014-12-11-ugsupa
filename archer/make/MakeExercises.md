@@ -13,10 +13,10 @@ Be sure to use a single tab when indenting the actions, not spaces!
 
 Re-run `make` and all the `.dat` files should be rebuilt.
 
-Exercise 2 - simplify a rule 
-----------------------------
+Exercise 2 - rewrite the action
+-------------------------------
 
-Simplify the rule of the `%.dat` target using automatic variables:
+Rewrite the of the `%.dat` target so that it works. Use the following special macros:
 
 * `$@` is the target of the current rule.
 * `$<` is the first dependency only.
@@ -30,13 +30,16 @@ macros `$(COUNT_SRC)` and `$(COUNT_EXE)`.
 Exercise 4 - add another processing stage
 -----------------------------------------
 
-Add a rule to create `.jpg` files from `.dat` files, using
-wild-cards. 
+Define macros to hold `plotcount.py` and the command `python
+plotcount.py`.
+
+Add a pattern rule to create `.jpg` files from `.dat` files.
+
+Add a rule with a phony target, `jpgs`, to create all the `.jpg`
+files.
 
 Modify the `analysis.tar.gz` rule to add the `.jpg` files to the `.gz`
 file. 
-
-Use macros to hold the script name and command `python plotcount.py`.
 
 Add a `clean` rule to remove `.jpg` and `.dat` files and
 `analysis.tar.gz`.
