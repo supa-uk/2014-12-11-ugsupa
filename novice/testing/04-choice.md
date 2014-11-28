@@ -11,11 +11,13 @@ Do we test each individual thing exhaustively?
 
 When to implement tests?
 
+Exercise - Think about what to do with testing and the scenarios in the room
+----------------------------------------------------------------------------
+
 - Discuss this
 
 Get feedback from the room and come up with what people think is a reasonable and feasible approach to testing
 
-Introduce automation
 
 Automated testing jobs
 ----------------------
@@ -32,6 +34,8 @@ A more advanced approach is via a continuous integration server. These trigger a
 
 * [Muon Ion Cooling Experiment](http://www.mice.iit.edu/) (MICE) have a large number of tests written in Python. They use [Jenkins](http://jenkins-ci.org/) to build their code and trigger the running of the tests which are then [published online](http://test.mice.rl.ac.uk/).
 * [Apache Hadoop Common Jenkins dashboard](https://builds.apache.org/job/Hadoop-Common-trunk/)
+
+Show an example of a CI test server.
 
 Tests are code
 --------------

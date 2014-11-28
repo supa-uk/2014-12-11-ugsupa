@@ -199,6 +199,24 @@ These do not have to be perfect, indeed testing is an iterative and responsive p
 
 Is there anyone willing to give a summary of their test?
 
+
+Test structure
+--------------
+
+Test structure:
+
+* Set-up expected outputs given known inputs e.g. `expected/.dat` files or `0` for the return code.
+* Run component on known inputs.
+* Check if actual outputs match expected outputs, or, for invalid inputs, that behaviour is as expected.
+
+Regardless of whether it is a test of a:
+
+* 10 line function.
+* Component or library.
+* Serial application running on a single processor.
+* Parallel application running on a multiple processors.
+* Automated or manual.
+
 ## What Comes Next
 
 * Starting to Test

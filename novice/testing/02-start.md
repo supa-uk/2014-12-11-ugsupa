@@ -10,11 +10,10 @@ root: ../..
 * Where to start with a unit test?
 * Evolve tests from the outside-in.
 
-End-to-end tests and Python
-----------------------------
+End-to-end tests
+----------------
 
-Summarise an end to end test. Example here will be does a file get created and does the path visit all the cities for a given length? 
-
+Summarise an end to end test. 
 
 Determine a flow pattern:
 
@@ -95,7 +94,7 @@ Solution:
 
    from nose.tools import assert_equal
 
-   def test_path_form(filename, path_length):
+   def confirm_path_form(filename, path_length):
 	    result = pickle.load(open(filename, "r"))
             best_path_nodes = result[0]
             best_path_names = result[1]
@@ -104,4 +103,33 @@ Solution:
             assert_equal(len(best_path_names), path_length)
             assert_equal(len(set(best_path_nodes)), path_length)	
 
-    
+
+Writing it all together
+-----------------------
+
+Now we need to write the tests into a coherent format for the end to end work.
+
+A problem - how do we specify the data files to work with, both input data and expected data?
+
+We can't just run once and say things worked - we have to write checks across a range of possible input types and failure targets.
+
+We could put all our source test data into a test_data directory and in this case we don't have expected data but we do know the form.
+
+We can use our confirm_path_form function to check the outputs where an output file is created and have seperate tests for cases where output
+was not created.
+
+Reduce duplicated code and loop over files using a configuration file (note we use a config file because one of the inputs to the program is
+dependent on the number of cities represented in the test data):
+
+    file = open(<test_file>, 'r')
+    for line in file:
+        test_config = line.split()
+        output = test_config[0] + ".out"
+        prepare = "python anttsp.py " + test_config[1] + test_config[0] + " " + output
+        os.system(cmd)
+        file_exists(output)        
+        confirm_path_form(output,path_length)
+
+<test_file> is replaced either with a literal value or by an variable.
+
+Walkthrough of putting the end-to-end test file together for the overall travelling salesman problem.

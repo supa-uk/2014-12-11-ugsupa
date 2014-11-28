@@ -25,6 +25,8 @@ What we hope to do:
 3.  [Breaking Up](03-break.html)
 4.  [Making Choices](04-choice.html)
 
+5.  [Additional Testing Information](05-noteaboutnumbers.html)
+
 [Reference](./index.html)
 
 </div>
