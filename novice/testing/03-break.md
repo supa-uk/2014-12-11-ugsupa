@@ -28,6 +28,40 @@ Some example solutions (there are many more)
 * check that a graph is created correctly for a given input
 * check that the functions operate correctly?
 
+A unit test for 'average'
+----------------------
+
+Create 'test_antgraph.py':
+
+	from antgraph import AntGraph
+
+Python [nose](https://pypi.python.org/pypi/nose/) library includes tests for equality, inequality, boolean values, thrown exceptions etc.
+	
+	from nose.tools import assert_equal
+        import numpy as np
+
+	def test_ones_distance_etha():
+		distances = [[1 for col in range(3)] for row in range(3)]
+                graph = AntGraph(3, distances)
+                assert_equals(graph.etha(0,1), 1)
+
+        def test_general_distance_etha():
+                distances = [[0, 5, 4], [5, 0, 2],[4, 2, 0]]
+                graph = AntGraph(3, distances)
+		np.testing.assert_allclose(0.2, graph.etha(0,1), rtol=0, atol=0.01)
+
+Running tests:
+
+`nosetests` automatically finds, runs and reports on tests.
+
+    nosetests test_cfd.py
+
+`.` denotes successful test function calls.
+
+Uses 'reflection' to find out the test functions - `test_` function, module and file prefixes.
+
+Note - these are very simple tests for something that could get quite complicated, it is good to start with some simple cases and build up.
+
 
 Exercise - implement unit tests for the Travelling Salesman Problem Code
 --------------------------------------------------------------------------
