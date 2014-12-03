@@ -1,16 +1,26 @@
 # Starting out
 
-## Check that we have git 
+## Motivational Scenarios
+Can motivate the use of a revision control system:
 
-```
+* Development encompassing multiple systems.
+* Collaborative development.
+* Keeping provenance (if you have a student working/researching for you)
+   * Good skill for them to learn.
+   * Keeps provenance (if they do good comments)
+
+## Checking that we have git 
+
+Just to check that `git` is installed in the local machine.
+
     $ git --version 
-```
 
 ## Getting help
 
-```
+You can get help from `git` by just typing it at the command line.
+
     $ git 
-```
+
 
 by itself returns most common commands. Same as:
 
@@ -63,6 +73,8 @@ to unset:
      $ git config --global --unset https.proxy
 
 ## Creating a repository:
+
+Let's create a repository:
 
      $ mkdir planets
      $ cd planets
