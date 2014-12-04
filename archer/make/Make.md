@@ -13,7 +13,7 @@ Answer: we need to
 
 Automation allows us to:
 
-* "write once, run many" instead of typing the same commands over and over.
+* "write once, run many" instead of typing the same commands over and over. 
 * Document syntax, flags, inputs, libraries, dependencies.
 * Recreate files (e.g. binaries, output data, graphs) only when needed.
   - Input files => process => output files.
@@ -26,13 +26,19 @@ Make:
 * A widely-used, fast, free, well-documented, build tool.
 * Developed by Stuart Feldman:
   - Bell Labs summer intern, 1977.
-  - Vice President of Computer Science at IBM Research and Google ACM Software System Award winner, 2003.
+  - Vice President of Computer Science at IBM Research and Google ACM
+    Software System Award winner, 2003. 
 
 Other build tools:
 
 * Apache ANT designed for Java.
 * Python doit.
-* CMake and Autoconf/Automake generate platform-dependent build scripts e.g. Make, Visual Studio project files etc.
+* CMake and Autoconf/Automake generate platform-dependent build
+  scripts e.g. Make, Visual Studio project files etc. 
+
+Which is best?
+
+* Depends on your requirements, intended usage, operating system etc.
 
 Data processing pipeline
 ------------------------
@@ -40,8 +46,10 @@ Data processing pipeline
 Suppose we have scripts that implement a workflow to:
 
 * Read data files e.g. a text file.
-* Perform an analysis e.g. count the number of occurrences of each word in the file.
-* Write the results to a file e.g. a file with each word and its number of occurrences.
+* Perform an analysis e.g. count the number of occurrences of each
+  word in the file. 
+* Write the results to a file e.g. a file with each word and its
+  number of occurrences. 
 * Plot the data e.g. a graph of the most frequently occurring words.
 * Save the graph as an image e.g. a PDF or a JPG.
 
@@ -160,8 +168,8 @@ The order of rebuilding dependencies is arbitrary.
 
 Dependencies must make up a directed acyclic graph.
 
-Exercise 1 - add a rule (5 minutes)
------------------------
+Exercise 1 - write a new rule (5 minutes)
+-----------------------------
 
 See [exercises](MakeExercises.md).
 
@@ -170,6 +178,9 @@ Solution:
     # Count words.
     isles.dat : books/isles.txt
             python wordcount.py books/isles.txt isles.dat
+
+    abyss.dat : books/abyss.txt
+            python wordcount.py books/abyss.txt abyss.dat
 
     last.dat : books/last.txt
             python wordcount.py books/last.txt last.dat
@@ -252,6 +263,7 @@ Let's recreate them all:
     make dats
 
 Question: why don't we make the `.txt` files depend on `wordcount.py`?
+
 Answer: `.txt` files are input files and have no dependencies. To make these depend on `wordcount.py` would introduce a 'false dependency'.
 
 Let's add our analysis script to the archive too:
@@ -276,10 +288,19 @@ We now need to provide a body for the rule. Let's try:
 
 	python wordcount.py books/%.txt %.dat
 
-This does not work. It is treating '%.dat' as an actual file name in the action. We need to rewrite the action.
+This does **not** work. 
 
-Exercise 2 - rewrite the action (10 minutes)
--------------------------------
+We can use `-n` to see what make would do - the commands it will run - without it actually running them:
+
+    touch books/*.txt
+    make -n analysis.tar.gz
+
+It is treating `%.dat` as an actual file name in the action - the `%` wild-card is only expanded in the target and dependencies. 
+
+We need to rewrite the action.
+
+Exercise 2 - change an action (10 minutes)
+-----------------------------
 
 See [exercises](MakeExercises.md).
 
@@ -320,8 +341,8 @@ Answer: we might change our programming language or the way in which our command
 
 `$(...)` tells Make to replace the macro with its value when Make is run.
 
-Exercise 3 - use a macro (10 minutes)
-------------------------
+Exercise 3 - use macros (10 minutes)
+-----------------------
 
 See [exercises](MakeExercises.md).
 
@@ -366,16 +387,33 @@ This is an example of good programming practice:
 * There is no need to edit the code to change its configuration which reduces the risk of introducing a bug.
 * Code that is configurable is more modular, flexible and reusable.
 
-What make will do
------------------
+wildcard and patsubst
+---------------------
 
-We can use `-n` to see what make would do - the commands it will run - without it actually running them:
+Make has many functions. 
 
-    touch books/*.txt
-    make -n analysis.tar.gz
+`wildcard` gets files matching a pattern and save these in a macro:
 
-Exercise 4 - add another processing stage (15 minutes)
------------------------------------------
+    TXT_FILES=$(wildcard books/*.txt)
+
+`patsubst` substitutes patterns in files e.g. change one suffix to another:
+
+    DAT_FILES=$(patsubst books/%.txt, %.dat, $(TXT_FILES))
+
+With these we can rewrite `dats` to remove the list of files:
+
+    .PHONY : dats
+    dats : $(DAT_FILES)
+
+Let's check:
+
+    make clean
+    make dats
+
+Note how `sierra.txt` is now processed too.
+
+Exercise 4 - extend the Makefile to create jpgs (15 minutes)
+-----------------------------------------------
 
 See [exercises](MakeExercises.md).
 
@@ -394,6 +432,10 @@ Makefile, `Makefile`:
 
     include config.mk
 
+    TXT_FILES=$(wildcard books/*.txt)
+    DAT_FILES=$(patsubst books/%.txt, %.dat, $(TXT_FILES))
+    JPG_FILES=$(patsubst books/%.txt, %.jpg, $(TXT_FILES))
+
     # Count words.
     %.dat : books/%.txt $(COUNT_SRC)
             $(COUNT_EXE) $< $@
@@ -402,52 +444,36 @@ Makefile, `Makefile`:
     %.jpg : %.dat $(PLOT_SRC)
             $(PLOT_EXE) $< $@
 
-    analysis.tar.gz : *.dat *.jpg $(COUNT_SRC) $(PLOT_SRC)
-            tar -czf $@ $^
-
-    .PHONY : dats
-    dats : isles.dat abyss.dat last.dat
-
-    .PHONY : jpgs
-    jpgs : isles.jpg abyss.jpg last.jpg
-
-    .PHONY : clean
-    clean : 
-            rm -f *.jpg 
-            rm -f *.dat 
-            rm -f analysis.tar.gz
-
-Let's check:
-
-    make clean
-    make jpgs
-    make analysis.tar.gz
-
-shell and patsubst
-------------------
-
-Make supports many commands. `shell` allows us to run a shell command and save the output in a variable:
-
-    TXT_FILES=$(shell find books -type f -name '*.txt')
-
-`patsubst` allows us to substitute patterns in files e.g. change one suffix to another:
-
-    DAT_FILES=$(patsubst books/%.txt, %.dat, $(TXT_FILES))
-    JPG_FILES=$(patsubst books/%.txt, %.jpg, $(TXT_FILES))
-
     .PHONY : dats
     dats : $(DAT_FILES)
 
     .PHONY : jpgs
     jpgs : $(JPG_FILES)
 
+    analysis.tar.gz : $(DAT_FILES) $(JPG_FILES) $(COUNT_SRC) $(PLOT_SRC)
+            tar -czf $@ $^
+
+    .PHONY : clean
+    clean : 
+            rm -f $(DAT_FILES)
+            rm -f $(JPG_FILES)
+            rm -f analysis.tar.gz
+
 Let's check:
 
     make clean
-    make jpgs
     make analysis.tar.gz
 
-Note how sierra.txt is now processed too.
+Debugging
+---------
+
+Make 3.79:
+
+    $(warning TXT_FILES has value $(TXT_FILES))
+
+Make 3.81 has:
+
+    $(info TXT_FILES has value $(TXT_FILES))
 
 Parallel jobs
 -------------
@@ -460,6 +486,13 @@ Conclusion
 ----------
 
 See [the purpose of Make](MakePurpose.png).
+
+Why use Make if it is so old?
+
+* It is still very prevalent.
+* It runs on Unix/Linux, Windows and Mac.
+* The concepts - targets, dependencies, actions, rules - are common to
+  most build tools.
 
 Automated build scripts help us in a number of ways. They:
 
